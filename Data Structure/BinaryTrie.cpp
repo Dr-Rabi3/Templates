@@ -27,7 +27,8 @@ struct BT {
     for ( int i = M - 1; i >= 0; --i ) {
       int v = val >> i & 1;
       if ( !~nodes [ u ][ v ] ) {
-        nodes [ u ][ v ] = newNode( );
+        int ch = newNode( );
+        nodes [ u ][ v ] = ch;
         }
       nodes [ u ].frq [ v ] += op;
       nodes [ u ].sz += op;

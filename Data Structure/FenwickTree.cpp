@@ -24,5 +24,4 @@ struct BIT {
       i += i & -i;
       }
     }
-
   };
