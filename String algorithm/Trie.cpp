@@ -95,6 +95,7 @@ class Trie {
       DFS( node->child [ c ] , ans );
       }
     }
+  
   set < string > Similar( string& s ) {
     Node* tamp = root;
     for ( auto& i : s ) {
