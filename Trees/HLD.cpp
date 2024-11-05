@@ -1,14 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-constexpr int N = 2e5 + 5;
+
+constexpr int N = 1e4 + 5;
+
 struct SegTree {
   vector<int> seg;
   int N, ign;
   SegTree(int n) {
     N = 1;
     while (N <= n) N <<= 1;
-    ign = 0;  // Update this if needed (e.g., use a large value for min queries)
+    ign = -1e18;  // Update this if needed (e.g., use a large value for min queries)
     seg.assign(N << 1, ign);
   }
 
@@ -30,48 +32,64 @@ struct SegTree {
     return ret;
   }
 };
-vector<int>adj[N];
+// vector<int>adj[N]; // for update node
+vector<pair<int, int>>adj[N];// for update edge
 vector<int>in(N), tree(N), par(N), sz(N), lvl(N), tp(N), arr(N);
+vector<int>edge_node(N), edge_cost(N);
 SegTree seg(N);
 int n, q, id = 0;
 
 void dfs0(int cur, int p) {
   sz[cur] = 1;
   par[cur] = p;
-  for (int chi : adj[cur]) {
+  for (auto neigh : adj[cur]) {
+    // int chi = neigh; // (node)
+    int chi = neigh.first, idx = neigh.second;// (edge)
     if (chi == p) continue;
     lvl[chi] = lvl[cur] + 1;
     par[chi] = cur;
+    edge_node[idx] = chi;
     dfs0(chi, cur);
     sz[cur] += sz[chi];
   }
 }
 
-void dfs1(int cur, int p, int top) {
+void dfs1(int cur, int p, int top, int idx = 0) {// w for edge
   in[cur] = ++id;
   tree[id] = cur;
   tp[cur] = top;
-  seg.update(in[cur], arr[cur]);
+  seg.update(in[cur], edge_cost[idx]);
+  int h_w = -1e18;// for edge
   int h_chi = -1, h_sz = -1;
-  for (int chi : adj[cur])
-    if (chi != p and sz[chi] > h_sz) h_sz = sz[chi], h_chi = chi;
+  for (auto neigh : adj[cur]) {
+    // int chi = neigh; //(node)
+    int chi = neigh.first;
+    if (chi != p and sz[chi] > h_sz)
+      h_sz = sz[chi], h_chi = chi, h_w = neigh.second;
+  }
 
   if (!~h_chi) return;
-  dfs1(h_chi, cur, top);
-  for (int chi : adj[cur]) {
+  dfs1(h_chi, cur, top, h_w);
+  for (auto neigh : adj[cur]) {
+    // int chi = neigh; //(node)
+    int chi = neigh.first;// (edge)
     if (chi == p || chi == h_chi) continue;
-    dfs1(chi, cur, chi);
+    dfs1(chi, cur, chi, neigh.second);
   }
 }
 
-int query(int u, int v) {
-  int res = 0;
+pair<int, int> query(int u, int v) {
+  int res = seg.ign;
   while (tp[u] != tp[v]) {
     if (lvl[tp[u]] < lvl[tp[v]]) swap(u, v);
     res = max(res, seg.query(in[tp[u]], in[u]));
     u = par[tp[u]];
   }
   if (lvl[u] > lvl[v]) swap(u, v);
-  res = max(res, seg.query(in[u], in[v]));
-  return res;
+  // (edge)
+  if (in[u] + 1 > in[v]) return { res ,u };
+  res = max(res, seg.query(in[u] + 1, in[v]));
+  // res = (res + seg.query(in[u], in[v]));// (node)
+  return { res,u };// u LCA
 }
+
