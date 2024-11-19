@@ -93,3 +93,23 @@ pair<int, int> query(int u, int v) {
   return { res,u };// u LCA
 }
 
+vector<pair<int , int>>getPath( int u , int v ) {
+  vector<pair<int , int>>a , b;
+  while ( tp [ u ] != tp [ v ] ) {
+    if ( lvl [ tp [ u ] ] < lvl [ tp [ v ] ] ) {
+      b.push_back( { in [ tp [ v ] ], in [ v ] } );
+      v = par [ tp [ v ] ];
+      }
+    else {
+      a.push_back( { in [ tp [ u ] ], in [ u ] } );
+      u = par [ tp [ u ] ];
+      }
+    }
+  if ( lvl [ u ] > lvl [ v ] ) a.push_back( { in [ v ], in [ u ] } );
+  else b.push_back( { in [ u ], in [ v ] } );
+  reverse( a.begin( ) , a.end( ) );
+  reverse( b.begin( ) , b.end( ) );
+  a.insert(a.end(), b.begin(), b.end());
+  return a;
+  }
+
