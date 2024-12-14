@@ -22,9 +22,13 @@ int power( int a , int b , int m ) {
     }
   return res;
   }
+
   // g is a primitive root modulo p if and only if for any integer a such that
   // gcd(a, p) = 1, there exists an integer k such that: g^k = a(mod p).
   // primitive root modulo n exists iff n = 1, 2, 4 or n = p^k or 2 * p^k for some odd prime p
+  //the smallest number k  for which  g^k = a(mod p) is equal phi( n ).
+  //the number of primitive roots modulo p  , if there are any , is equal to phi( phi( p ) ).
+
 int primitive_root( int p ) {
   // first check if primitive root exists or not. I have omitted this part here
   vector<int> fact;
@@ -36,7 +40,7 @@ int primitive_root( int p ) {
       }
     }
   if ( n > 1 ) fact.push_back( n );
-  for ( int res = 2; res <= p; ++res ) { // this loop will run at most (logp ^ 6) times i.e. until a root is found
+  for ( int res = 2; res <= p; ++res ) { // this loop will run at most (log(p) ^ 6) times i.e. until a root is found
     bool ok = true;
     // check if this is a primitive root modulo p
     for ( size_t i = 0; i < fact.size( ) && ok; ++i )
