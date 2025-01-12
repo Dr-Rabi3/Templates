@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 /// point update / sub-rectangle query
 struct BIT2D {
   int n , m;

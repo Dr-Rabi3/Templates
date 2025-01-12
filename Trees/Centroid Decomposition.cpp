@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-#define int long long
-#define ed '\n'
-using namespace std;
 
 constexpr int N = 1e5 + 5;
 vector<int>adj [ N ];

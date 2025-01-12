@@ -1,8 +1,5 @@
 // 2D Fenwick Tree Offline( n * log( n ) memory ) :
 
-#include <bits/stdc++.h>
-using namespace std;
-
 #define pii pair<int,int>
 
 class BIT2D {

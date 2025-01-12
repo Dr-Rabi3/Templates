@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 const int SQ , N; // assign  SQ and N
 int blk [ SQ + 1 ] , frq [ N + 1 ];

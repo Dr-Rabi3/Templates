@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 //know if node is minimum vertex cover or not
 vector<set<int>> adj;

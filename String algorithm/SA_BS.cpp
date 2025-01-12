@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 template < typename T > class suffix_array {
   int n;
   string str;

@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 const int MAX = 31;
 int comb [ MAX ][ MAX ];

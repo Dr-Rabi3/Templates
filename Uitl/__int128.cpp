@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 __int128 read( ) {
   __int128 x = 0 , f = 1;

@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 #define ll long long
 // \sum{k=1}^{n}{floor(n/k)}
 // count of numbers such that n/i = k -> n/k - n/(k+1)

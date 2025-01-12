@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 /* how to use :
   SparseTable<int> sp(a, [](int a, int b) {

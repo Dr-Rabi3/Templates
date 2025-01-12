@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 struct DSU {
   vector<int> par , sz , checkPoints;

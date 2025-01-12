@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 vector<int> comp( vector<int>& v ) {
   vector<int> d = v;

@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 struct SegTree2d {
   int n , m;
   vector<vector<int>> seg;

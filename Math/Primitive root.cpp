@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 
 int totient( int n ) {
   int ans = n;

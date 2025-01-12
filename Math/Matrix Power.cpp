@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+ 
 /*
  * steps to solve matrix power problems
  * write iterative dp with memory reduction

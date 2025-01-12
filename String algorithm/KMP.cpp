@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 vector<int> kmp( const string& s ) {
   const int n = ( int ) s.length( );
   vector<int> fail( n );

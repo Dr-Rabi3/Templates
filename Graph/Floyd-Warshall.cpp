@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 const int N = 100;
 vector<int>adj [ N ];

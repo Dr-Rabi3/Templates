@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 #define ll long long
 
 ll count_p_in_nfact( ll p , ll n ) {

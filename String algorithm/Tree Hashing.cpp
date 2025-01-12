@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+ 
 
 #define ull unsigned long long
 #define all(X) X.begin(),X.end()

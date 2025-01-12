@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 struct Node {
   unordered_map<char , int> ch;
   int fail {} , nxt {} , id = -1;

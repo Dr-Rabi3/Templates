@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 vector<vector<int>> adj;
 vector<int> in; /// in-degree of each node

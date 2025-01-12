@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 struct SegTree {
 #define LF (x*2+1)

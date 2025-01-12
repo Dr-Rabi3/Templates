@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 #define X real() // can sign values point a; a.real(5) , a.image(2)
 #define Y imag() // angle with orignial
 

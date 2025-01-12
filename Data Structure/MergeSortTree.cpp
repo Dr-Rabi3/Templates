@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 #define all(V) V.begin(), V.end()
 struct MergeSortTree {

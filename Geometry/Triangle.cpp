@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 double fixAngle( double a ) {
   return ( a > 1 ? 1 : ( a < -1 ? -1 : a ) );

@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 struct node {
   int ch [ 2 ] { -1, -1 } , frq [ 2 ] {} , sz = 0;

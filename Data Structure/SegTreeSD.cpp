@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 /// update point / query range (ONLY)
 struct SegTree {

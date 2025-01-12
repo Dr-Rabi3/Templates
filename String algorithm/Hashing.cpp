@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 const int N = 100 , B1 = 37 , B2 = 39 , MOD = 1e9 + 7;
 #define fr first
 #define sc second

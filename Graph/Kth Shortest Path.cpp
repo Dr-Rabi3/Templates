@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+
 
 struct edge {
   int s , e , c; //start, end, cost

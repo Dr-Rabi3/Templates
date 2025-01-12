@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 
 struct pair_hash {
   size_t operator()( const pair<int , int>& x ) const {

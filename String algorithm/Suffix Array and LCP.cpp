@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 struct SuffixArray {
 #define vi vector<int>
 #define vvi vector<vi>

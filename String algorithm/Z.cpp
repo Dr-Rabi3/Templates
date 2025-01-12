@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+ 
 
 /* the max number of characters starting from the position  i that coincide with the first characters of s  */
 vector<int> z_function( string s ) {

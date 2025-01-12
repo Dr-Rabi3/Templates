@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 // Longest plaindromic substring in O(n) time complexity
 string manacher( string s ) {
   // Preprocess the input so it can handle even length palindromes

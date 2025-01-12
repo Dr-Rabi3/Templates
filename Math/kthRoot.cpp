@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 #define ll long long
 
 ll kthRoot( ll n , ll k ) // return integer kth root for n

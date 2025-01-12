@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+ 
 #define ll long long
 
 //from kactl, if a and b are co-prime, x is a inv % b
