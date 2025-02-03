@@ -50,11 +50,11 @@ int find_kth( Node* vl , Node* vr , int k , int lx = 0 , int rx = n - 1 ) {
   }
 
 // number of elements greater than K
-int no_of_ele_gtk( Node* vl , Node* vr , int l , int r , int lx = 0 , int rx = n - 1 ) {
+int no_of_ele( Node* vl , Node* vr , int l , int r , int lx = 0 , int rx = n - 1 ) {
   if ( r < lx || rx < l ) return ign;
   if ( l <= lx && rx <= r ) return vr->val - vl->val;
-  return merge( no_of_ele_gtk( vl->l , vr->l , l , r , lx , md ) ,
-  no_of_ele_gtk( vl->r , vr->r , l , r , md + 1 , rx ) );
+  return merge( no_of_ele( vl->l , vr->l , l , r , lx , md ) ,
+  no_of_ele( vl->r , vr->r , l , r , md + 1 , rx ) );
   }
 
 #undef md

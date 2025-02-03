@@ -1,84 +1,77 @@
- 
-const int N = 100 , B1 = 37 , B2 = 39 , MOD = 1e9 + 7;
-#define fr first
-#define sc second
-int pw1 [ N ] , pw2 [ N ];
 
-struct Hash {
-  private:
-  vector <pair<int , int>> prefix , suffix;
-  int n;
+namespace Hash {
+  const int mod = 1e9 + 7 , typeHash = 2;
+  vector<vector<int>>pw , inv;
+  array<int , typeHash>base = { 31,37 };
 
-  void hash_prefix( const string& str ) {
-    int h1 = 0 , h2 = 0;
-    prefix.clear( );
-    prefix.reserve( str.size( ) );
-    for ( char i : str ) {
-      h1 = ( 1LL * h1 * B1 ) % MOD;
-      h1 = ( h1 + i ) % MOD;
-      h2 = ( 1LL * h2 * B2 ) % MOD;
-      h2 = ( h2 + i ) % MOD;
-      prefix.emplace_back( h1 , h2 );
+  inline int add( int a , int b ) { return ( ( 0LL + a + b ) % mod + mod ) % mod; }
+  inline int mul( int a , int b ) { return ( 1LL * a * b ) % mod; }
+  int fp( int b , int p ) {
+    int res = 1; b %= mod; while ( p ) {
+      if ( p & 1 ) res = mul( res , b );
+      b = mul( b , b ); p >>= 1;
       }
+    return res % mod;
     }
 
-  void hash_suffix( const string& str ) {
-    int h1 = 0 , h2 = 0;
-    suffix.assign( n , {} );
+  void pre( int n ) {
+    pw = vector<vector<int>>( typeHash , vector<int>( n + 1 ) );
+    inv = vector<vector<int>>( typeHash , vector<int>( n + 1 ) );
+    for ( int j = 0; j < typeHash; j++ )pw [ j ][ 0 ] = inv [ j ][ 0 ] = 1;
+    int i = 0;
+    while ( ++i <= n ) for ( int j = 0; j < typeHash; j++ )
+      pw [ j ][ i ] = mul( pw [ j ][ i - 1 ] , base [ j ] ) , inv [ j ][ i ] = fp( pw [ j ][ i ] , mod - 2 );
+    }
+
+  vector<vector<int>> build_hash_prefix( const string& s ) {
+    array<int , typeHash> hash;
+    fill( hash.begin( ) , hash.end( ) , 0 );
+    int n = s.size( );
+    vector<vector<int>> pref( typeHash , vector<int>( n + 1 ) );
+    for ( int i = 0; i < n; i++ ) {
+      for ( int j = 0; j < typeHash; j++ ) {
+        hash [ j ] = add( hash [ j ] , mul( pw [ j ][ i ] , ( s [ i ] - 'a' ) + 1 ) );
+        pref [ j ][ i ] = hash [ j ];
+        }
+      }
+    return pref;
+    }
+  array<int , typeHash> get_hash_prefix( int l , int r , const vector<vector<int>>& pref ) {
+    array<int , typeHash>ans;
+    for ( int j = 0; j < typeHash; j++ ) {
+      int sum = add( pref [ j ][ r ] , ( l == 0 ? 0 : -pref [ j ][ l - 1 ] ) );
+      ans [ j ] = mul( sum , inv [ j ][ l ] );
+      }
+    return ans;
+    }
+
+  // test it
+  vector<vector<int>> build_hash_suffix( const string& s ) {
+    array<int , typeHash> hash;
+    fill( hash.begin( ) , hash.end( ) , 0 );
+    int n = s.size( );
+    vector<vector<int>> suffix( typeHash , vector<int>( n + 1 ) );
     for ( int i = n - 1; i >= 0; i-- ) {
-      h1 = ( 1LL * h1 * B1 ) % MOD;
-      h1 = ( h1 + str [ i ] ) % MOD;
-      h2 = ( 1LL * h2 * B2 ) % MOD;
-      h2 = ( h2 + str [ i ] ) % MOD;
-      suffix [ i ] = { h1, h2 };
+      for ( int j = 0; j < typeHash; j++ ) {
+        hash [ j ] = add( hash [ j ] , mul( ( s [ i ] - 'a' ) + 1 , pw [ j ][ i ] ) );
+        suffix [ j ][ i ] = hash [ j ];
+        }
       }
     }
-
-  public:
-  Hash( ) {}
-
-  Hash( const string& s ) { build( s ); }
-
-  void build( const string& s ) {
-    assert( B1 );
-    n = s.size( );
-    hash_prefix( s );
-    hash_suffix( s ); /// we need this ?
-    }
-
-  pair<int , int> getSuffix( int l , int r ) {
-    auto ret = suffix [ l ];
-    int len = r - l + 1;
+    // test it
+  array<int , typeHash> get_hash_suffix( int l , int r , const vector<vector<int>>& suf ) {
+    int len = r - l + 1 , n = suf [ 0 ].size( );
+    array<int , typeHash> ret;
     r++;
-    if ( r < n ) {
-      ret.fr -= 1LL * suffix [ r ].fr * pw1 [ len ] % MOD;
-      if ( ret.fr < 0 )ret.fr += MOD;
-
-      ret.sc -= 1LL * suffix [ r ].sc * pw2 [ len ] % MOD;
-      if ( ret.sc < 0 )ret.sc += MOD;
-
+    for ( int j = 0; j < typeHash; j++ ) {
+      ret [ j ] = suf [ j ][ l ];
+      if ( r < n ) {
+        ret [ j ] = add( ret [ j ] , -mul( suf [ r ][ j ] , pw [ j ][ len ] ) );
+        }
       }
     return ret;
     }
 
-  pair<int , int> getPrefix( int l , int r ) {
-    auto ret = prefix [ r ];
-    int sz = r - l + 1;
-    l--;
-    if ( l >= 0 ) {
-      ret.fr -= 1LL * prefix [ l ].fr * pw1 [ sz ] % MOD;
-      if ( ret.fr < 0 )ret.fr += MOD;
-      ret.sc -= 1LL * prefix [ l ].sc * pw2 [ sz ] % MOD;
-      if ( ret.sc < 0 )ret.sc += MOD;
-      }
-    return ret;
-    }
+
   };
-
-void build( ) {
-  pw1 [ 0 ] = pw2 [ 0 ] = 1;
-  for ( int i = 1; i < N; ++i ) {
-    pw1 [ i ] = 1LL * pw1 [ i - 1 ] * B1 % MOD;
-    pw2 [ i ] = 1LL * pw2 [ i - 1 ] * B2 % MOD;
-    }
-  }
+using namespace Hash;

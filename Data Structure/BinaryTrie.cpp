@@ -32,6 +32,8 @@ struct BT {
       nodes [ u ].sz += op;
       u = nodes [ u ][ v ];
       }
+    nodes [ u ].frq [ val & 1 ] += op;
+    nodes [ u ].sz += op;
     }
 
     /// Helper function to match nodes in the trie
@@ -96,6 +98,22 @@ struct BT {
       if ( u == -1 )return ans;
       }
     return ans + nodes [ u ].sz;
+    }
+
+  /// Count the number of integers such that a[i] XOR num < l
+  int query_less( int num , int l ) {
+    int u = 0 , ans = 0;
+    for ( int i = M - 1; i >= 0; i-- ) {
+      int btP = num >> i & 1;
+      int btL = l >> i & 1;
+      if ( btL ) {
+        ans += nodes [ u ].frq [ btP ];
+        u = nodes [ u ][ !btP ];
+        }
+      else u = nodes [ u ][ btP ];
+      if ( u == -1 ) break;
+      }
+    return ans;
     }
 
     /// Maximum value of a[i] XOR x
