@@ -40,7 +40,8 @@ int query( Node* node , int l , int r , int lx = 0 , int rx = n - 1 ) {
   query( node->r , l , r , md + 1 , rx ) );
   }
 
-// find kth number in sorted range
+// find kth number in sorted range [i, j]
+// find_kth( roots [ i - 1 ] , roots [ j ] , k )
 int find_kth( Node* vl , Node* vr , int k , int lx = 0 , int rx = n - 1 ) {
   if ( lx == rx )
     return lx;
@@ -49,7 +50,8 @@ int find_kth( Node* vl , Node* vr , int k , int lx = 0 , int rx = n - 1 ) {
   return find_kth( vl->r , vr->r , k - ( vr->l->val - vl->l->val ) , md + 1 , rx );
   }
 
-// number of elements greater than K
+// number of elements greater than K [i, j]
+// no_of_ele_gtk( roots [ i - 1 ] , roots [ j ] , k , MAX ) )
 int no_of_ele( Node* vl , Node* vr , int l , int r , int lx = 0 , int rx = n - 1 ) {
   if ( r < lx || rx < l ) return ign;
   if ( l <= lx && rx <= r ) return vr->val - vl->val;

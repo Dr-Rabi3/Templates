@@ -100,7 +100,7 @@ struct BT {
     return ans + nodes [ u ].sz;
     }
 
-  /// Count the number of integers such that a[i] XOR num < l
+  /// Count the number of integers such that a[i] XOR num <= l
   int query_less( int num , int l ) {
     int u = 0 , ans = 0;
     for ( int i = M - 1; i >= 0; i-- ) {
@@ -111,9 +111,9 @@ struct BT {
         u = nodes [ u ][ !btP ];
         }
       else u = nodes [ u ][ btP ];
-      if ( u == -1 ) break;
+      if ( u == -1 ) return ans;
       }
-    return ans;
+    return ans + nodes [ u ].sz;
     }
 
     /// Maximum value of a[i] XOR x

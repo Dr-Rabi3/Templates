@@ -47,6 +47,7 @@ class Trie {
       }
     return ans;
     }
+  // get max length common string in at least two string
   pair<int , int>getCommon( ) {
     return Common( root );
     }
@@ -94,7 +95,7 @@ class Trie {
       DFS( node->child [ c ] , ans );
       }
     }
-  
+  // find all string start with s as prefix (s is exclude)
   set < string > Similar( string& s ) {
     Node* tamp = root;
     for ( auto& i : s ) {
@@ -102,22 +103,12 @@ class Trie {
       if ( tamp->child.count( c ) == 0 || tamp->child [ c ]->cnt == 0 )
         return {};
       tamp = tamp->child [ c ];
-      }
+    }
     set < string > ans;
     DFS( tamp , ans );
     ans.erase( s );
     return ans;
-    }
-  int CntSimilar( string& s ) {
-    Node* tamp = root;
-    for ( auto& i : s ) {
-      char c = i;
-      if ( tamp->child.count( c ) == 0 || tamp->child [ c ]->cnt == 0 )
-        return 0;
-      tamp = tamp->child [ c ];
-      }
-    return tamp->cnt;
-    }
+  }
   int NoOfDistinctWord( ) {
     return NoDistinctWord;
     }

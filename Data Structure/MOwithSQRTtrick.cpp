@@ -66,7 +66,7 @@ vector<int> MO( vector <Query>& queries ) {
   add( l );
   for ( const auto& [lq , rq , iq] : queries ) {
     while ( r < rq ) add( ++r );
-    while ( l > lq ) add( --l );
+    while ( l > lq ) add( --l ); 
     while ( r > rq ) rem( r-- );
     while ( l < lq ) rem( l++ );
     res [ iq ] = getMex( );

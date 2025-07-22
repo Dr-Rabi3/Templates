@@ -1,4 +1,4 @@
- 
+
 
 // returns any or all numbers x such that x ^ k = a (mod m)
 // existence: a = 0 is trivial, and if a > 0: a ^ (phi(m) / gcd(k, phi(m))) == 1 mod m

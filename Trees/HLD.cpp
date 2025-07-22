@@ -1,8 +1,5 @@
 
-
-
 constexpr int N = 1e4 + 5;
-
 struct SegTree {
   vector<int> seg;
   int N, ign;
@@ -90,7 +87,17 @@ pair<int, int> query(int u, int v) {
   res = max(res, seg.query(in[u] + 1, in[v]));
   // res = (res + seg.query(in[u], in[v]));// (node)
   return { res,u };// u LCA
-}
+  }
+
+void update( int u , int v , int val ) {
+  while ( root [ u ] != root [ v ] ) {
+    if ( lvl [ root [ u ] ] < lvl [ root [ v ] ] ) swap( v , u );
+    seg.update( in [ root [ u ] ] , in [ u ] , val );
+    u = par [ root [ u ] ];
+    }
+  if ( lvl [ u ] > lvl [ v ] ) swap( u , v );
+  seg.update( in [ u ] , in [ v ] , val );
+  }
 
 vector<pair<int , int>>getPath( int u , int v ) {
   vector<pair<int , int>>a , b;
@@ -112,3 +119,25 @@ vector<pair<int , int>>getPath( int u , int v ) {
   return a;
   }
 
+int queryInPath( int u , int v ) {
+  node res = seg.ign;
+  vector<pair<int , int>>a , b;
+  while ( root [ u ] != root [ v ] ) {
+    if ( lvl [ root [ u ] ] > lvl [ root [ v ] ] ) {
+      a.emplace_back( in [ root [ u ] ] , in [ u ] );
+      u = par [ root [ u ] ];
+      }
+    else {
+      b.emplace_back( in [ root [ v ] ] , in [ v ] );
+      v = par [ root [ v ] ];
+      }
+    }
+  if ( lvl [ u ] > lvl [ v ] ) a.emplace_back( in [ v ] , in [ u ] );
+  else b.emplace_back( in [ u ] , in [ v ] );
+  reverse( a.begin( ) , a.end( ) );
+  reverse( b.begin( ) , b.end( ) );
+  for ( auto i : a )  res = res + seg.query( i.first , i.second );
+  swap( res.maxL , res.maxR );
+  for ( auto i : b )  res = res + seg.query( i.first , i.second );
+  return res.ans;
+  }

@@ -1,4 +1,4 @@
- 
+
 
 class SACK {
   vector<vector<int>>adj;

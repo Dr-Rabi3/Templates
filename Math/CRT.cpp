@@ -41,7 +41,13 @@ bool mod_inv(ll a, ll mod, ll &x) {
   return true;
 }
 
-bool CRT(const mod_eq &e1, const mod_eq &e2, mod_eq &res) {
+// t = t1 mod( x + y ) * 2 ,
+// t = t2 mod( p + q )
+// e1 = { ( x + y ) * 2,t1 }
+// e2 = { p + q,t2 }
+// return res = {lcm , t}
+
+bool CRT( const mod_eq& e1 , const mod_eq& e2 , mod_eq& res ) {
   ll q1, q2, g;
   if (!solveLDE(e1.M, -e2.M, e2.R - e1.R, q1, q2, g)) {
     return false;
