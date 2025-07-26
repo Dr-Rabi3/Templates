@@ -90,4 +90,3 @@ void pop_back( deque<pair<int, int>> & h ){
     h.pop_back();
 }
 // can't create pop front because you do prefix sum, if use segment or not use prefix sum do h1.fs = h1.fs - s.front() * pw1 [ s.size() ]
-+
